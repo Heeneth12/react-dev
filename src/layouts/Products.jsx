@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Product() {
+function Products() {
 
   const product = {
     id: 1,
@@ -51,4 +51,4 @@ function Product() {
   )
 }
 
-export default Product
+export default Products
