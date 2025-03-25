@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../layouts/NavBar';
+import { useParams } from 'react-router-dom';
 
-const Product = ({ product }) => {
+const Product = () => {
+  const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState('default');
+  const [demoProduct , setDemoProduct] = useState({});
 
   // Sample colors for demonstration (since colors aren't in the API data)
   const colors = [
@@ -14,22 +17,18 @@ const Product = ({ product }) => {
     { name: 'red', hex: '#E9636E' }
   ];
 
-  // Demo product in case no product is passed
-  const demoProduct = {
-    id: 1,
-    title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    price: 109.95,
-    description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    category: "men's clothing",
-    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg", // Using placeholder since we can't load external images
-    rating: {
-      rate: 3.9,
-      count: 120
-    }
-  };
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("get data");
+        setDemoProduct(data);
+      })
+      .catch(error => console.error(error))
+    }, []);
 
   // Use passed product or fallback to demo product
-  const displayProduct = product || demoProduct;
+  const displayProduct = demoProduct;
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);

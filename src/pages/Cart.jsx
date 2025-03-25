@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../layouts/NavBar';
 
 function Cart() {
+
   const cartItems = [
     {
       id: 1,
@@ -39,6 +40,13 @@ function Cart() {
 
   const shippingCost = 5.00;
   const totalCost = (parseFloat(calculateSubtotal()) + shippingCost).toFixed(2);
+
+
+  useEffect(() => {
+    console.log("Cart component mounted");
+  }, []);
+
+
 
   return (
     <>
